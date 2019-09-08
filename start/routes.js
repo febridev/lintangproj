@@ -23,3 +23,11 @@ Route.get('hello-world',({view}) => {
 Route.get('login',({view}) => {
     return view.render('login')
 })
+
+Route
+    .get('users/:id','UserController.show')
+    .middleware('auth')
+
+Route
+    .post('login','UserController.login')
+    .as('loginuser')
