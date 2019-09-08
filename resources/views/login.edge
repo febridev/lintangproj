@@ -24,13 +24,22 @@
             <p class="login-box-msg">Sign in to start your session</p>
         <form action="{{ route('loginuser')}}" method="post">
             {{csrfField()}}
-                <div class="form-group has-feedback">
-                    <input type="email" class="form-control" placeholder="Email" name="email">
+            @if(flashMessage('notification'))
+                <div class="form-group has-error">
+            @else
+                <div class="form-group has-feedback">    
+            @endif 
+            <div class="form-group has-feedback">
+                <label for="email"></label>
+                <input type="email" class="form-control" placeholder="Email" value="{{old('email','')}}" name="email">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    {{--  <span class="text-danger">error!!</span>  --}}
+                    {{ elIf('<span class"text-danger">ERROR!!</span>', getErrorFor('email'), hasErrorFor('email'))}}
                 </div>
                 <div class="form-group has-feedback">
                     <input type="password" class="form-control" placeholder="Password" name="password">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    {{ elIf('<span class"text-danger">ERROR!!</span>', getErrorFor('password'), hasErrorFor('password'))}}
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
@@ -49,6 +58,9 @@
             </form>
             <a href="#">I forgot my password</a><br>
             <a href="register.html" class="text-center">Register a new membership</a>
+            @if(flashMessage('notification'))
+                <span class="help-block"><b>{{flashMessage('notification')}}</b></span>
+            @endif
         </div>
     </div>
     
