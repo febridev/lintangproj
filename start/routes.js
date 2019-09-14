@@ -31,3 +31,10 @@ Route
 Route
     .post('login','UserController.login')
     .as('loginuser')
+Route
+    .group(()=>{
+        Route.get('/','AdminController.adminpage')
+        Route.get('logout','UserController.logout').as('logoutuser')
+    })
+    .prefix('mainboard')
+    .middleware(['auth'])

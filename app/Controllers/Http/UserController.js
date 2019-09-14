@@ -16,12 +16,16 @@ class UserController {
         try {
             const{email, password} = request.all()
             await auth.attempt(email,password)
-            return 'Bershasil login'  
+            return response.redirect('mainboard') 
         } catch (error) {
             console.log(error)
             session.flash({notification: 'Error Login #1, Check Email or Password Please '})
             return response.redirect('back')
         }
+    }
+    async logout({auth,view,response}){
+        await auth.logout()
+        return response.redirect('/login')
     }
 }
 
